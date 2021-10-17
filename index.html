@@ -1,0 +1,132 @@
+<style>
+  #container{
+    display:grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 3%;
+    padding:100px 100px;
+    margin:0;
+  }
+  #block1{
+    font-family: Arial;
+    padding:10%;
+    height: 500px;
+    background: #F1F1F1;
+    display: inline-block;
+    box-shadow: 4px 4px 5px #ddd;
+  }
+  #block2{
+    padding:10% 10%;
+    height: 500px;
+    display: inline-block;
+  }    
+  #text{
+    font-weight: bold;
+    margin: 20% 0;
+    width: 100%;
+    border: none;
+    outline:none;
+    font-size: 40px;
+  }
+  p{
+    font-size:12px;
+    margin: 20px 0px;
+  }
+  .taskContainer>p{
+    font-size:12px;
+    margin:0;
+    cursor: pointer;
+  }
+
+  hr{
+    border: none;
+    background-color: #ccc;
+    color: #ccc;
+    height: 1px;
+    width:100%;
+    grid-column: 1 / span 3;
+  }
+  h1{
+    margin:0
+    }
+  .taskContainer{
+    display:grid;
+    grid-template-columns:auto auto 12px;
+    grid-template-rows: auto auto;
+    align-items: center;
+  }
+  .check{
+    margin-left: auto; 
+    margin-right: 0;
+  }
+  .close{
+    font-weight:bold;
+    font-size:12px;
+    margin-right: 0;
+    text-align: right;
+  }
+</style>
+
+
+
+
+
+
+
+<div id="container">
+  <div id="block1">
+    <h1>TASK LIST</h1>
+    <p>Add tasks to you list by typing to the right and pressing enter. You may then view pending tasks below.</p>
+  </div>
+  <div id="block2">
+     <input id="text" placeholder="I need to...">
+  </div>
+</div>
+
+
+
+
+
+
+
+<script>
+  var parent=document.getElementById("block1")
+  var text=document.getElementById("text");
+  text.addEventListener("keyup",function(event){
+    if(event.keyCode===13){
+      var value=text.value;
+      text.value="";
+
+      var taskContainer=document.createElement("div");
+      taskContainer.setAttribute("class","taskContainer");
+      var task=document.createElement("p");
+
+      var check=document.createElement("input");
+      check.setAttribute("type","checkbox");
+      check.setAttribute("class","check");
+      check.addEventListener("change",function(){
+        if(task.style.textDecoration==="line-through"){
+          task.style.textDecoration="solid";
+        }
+        else{
+          task.style.textDecoration="line-through";
+        }
+      });
+
+      var close=document.createElement("p");
+      close.innerHTML="x";
+      close.setAttribute("class","close");
+      close.addEventListener("click",function(){
+        parent.removeChild(taskContainer);
+      });
+
+      var line=document.createElement("hr");
+      task.innerHTML=value;
+      parent.appendChild(taskContainer);
+      taskContainer.appendChild(task);
+      taskContainer.appendChild(check);
+      taskContainer.appendChild(close);
+      taskContainer.appendChild(line);
+      
+    }
+  });
+</script>
